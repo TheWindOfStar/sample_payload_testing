@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from Router.basic_attributes import router as basic_attribute_router
+from Router.product_collection import router as basic_attribute_router
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import os

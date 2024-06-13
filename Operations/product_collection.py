@@ -6,8 +6,6 @@ import jwt
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
-# import models.touchscreencms as models
-# from redis_client import redis_client
 from fastapi.security import OAuth2PasswordBearer
 
 load_dotenv() 
@@ -24,9 +22,9 @@ class Attibutes_crud:
         collection = self.db[collection_name]
         return str(collection.insert_one(data).inserted_id)
     
-    def get_all_items(self, collection_name: str) ->list[dict]:
+    def get_item_by_product_id(self, collection_name: str, product_id:str) ->list[dict]:
         collection = self.db[collection_name]
-        result = list(collection.find({}))
+        result = list(collection.find({"_id": product_id}))
         return result
     
     def get_item_by_attributes_name(self, collection_name:str, product_id: str, item_name:str ):
@@ -48,14 +46,6 @@ class Attibutes_crud:
 
         return "The attribute has been updated!"
 
-    def read(self, collection_name: str, item_id: str):
-        collection = self.db[collection_name]
-        return collection.find_one({'_id': ObjectId(item_id)})
-
-    def update(self, collection_name: str, item_id: str, data: dict):
-        collection = self.db[collection_name]
-        return collection.update_one({'_id': ObjectId(item_id)}, {'$set': data})
-
     def delete_item_by_attributs_name(self, collection_name:str, product_id: str, target_deleted_data: str):
 
         collection = self.db[collection_name]
@@ -71,4 +61,4 @@ class Attibutes_crud:
         
         return "The field has been removed!"
 
-Basic_attributes_crud_instance= Attibutes_crud()
+Product_crud_instance= Attibutes_crud()
