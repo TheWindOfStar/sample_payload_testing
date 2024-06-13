@@ -24,9 +24,9 @@ def get_all_items(ProductId:str):
     result = Product_crud_instance.get_item_by_product_id("sample_payload_collection", ProductId)
     return result
 
-@router.get("/GetAttriByName/{ProductId}/subname/{item_name}")
-def get_all_items(ProductId:str, item_name: str):
-    result = Product_crud_instance.get_item_by_attributes_name("sample_payload_collection", ProductId, item_name)
+@router.get("/GetAttriByName/{ProductId}/AttriName/{attri_name}")
+def get_all_items(ProductId:str, attri_name: str):
+    result = Product_crud_instance.get_item_by_attributes_name("sample_payload_collection", ProductId, attri_name)
     return result
 
 @router.put("/UpdateAttributeWithProductId/{ProductId}")
