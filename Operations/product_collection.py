@@ -1,5 +1,6 @@
 
 import hashlib
+import json
 from bson import ObjectId
 from fastapi import Depends, HTTPException
 import jwt
@@ -45,6 +46,39 @@ class Attibutes_crud:
             raise HTTPException(status_code=404, detail="attribute has not been updated")
 
         return "The attribute has been updated!"
+    
+
+    def upload_file_and_check_format(self, collection_name:str, product_id: str, target_updated_data: dict):
+        
+        
+        
+        
+        return True
+
+    def validate_json_and_csv_item(self, item: dict) -> dict:
+
+        errors =[]
+        try: 
+            item_id = item.get("_id", None)
+            if not item_id or not isinstance(item_id, str):
+                errors.append({"id": item_id, "status": "invalid", "error": "Missing or invalid _id"})
+
+            if not isinstance(item.get("_keywords", []), list):
+                errors.append({"id": item_id, "status": "invalid", "error": "_keywords must be a list"})
+            
+            if not isinstance(item.get("additives_tags", []), list):
+                errors.append({"id": item_id, "status": "invalid", "error": "additives_tags must be a list"})
+            
+            if not isinstance(item.get("additives_n", 0), int):
+                errors.append({"id": item_id, "status": "invalid", "error": "additives_n must be an integer"})
+
+            if errors:
+                return {"id": item_id, "errors": errors}
+            return {"id": item_id, "status": "valid"}
+        
+        except Exception as e:
+            raise HTTPException(status_code=422, detail=f"Invalid JSON: {str(e)}")
+
 
     def delete_item_by_attributs_name(self, collection_name:str, product_id: str, target_deleted_data: str):
 
