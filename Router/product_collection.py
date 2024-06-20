@@ -25,7 +25,7 @@ load_dotenv()
 uri = os.getenv('MONGO_URI_VERSION1')
 
 client = MongoClient(uri)
-db = client['admin']
+db = client['UnfoldSolutionIntership']
 
 @router.get("/GetItemById/{ProductId}")
 def get_all_items(ProductId:str):

@@ -23,7 +23,7 @@ class Attibutes_crud:
     
     def __init__(self):
             self.client = MongoClient(uri)
-            self.db = self.client['admin']
+            self.db = self.client['UnfoldSolutionIntership']
 
     def create(self, collection_name: str, data: dict):
         collection = self.db[collection_name]
